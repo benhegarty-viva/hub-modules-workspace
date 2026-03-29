@@ -1,0 +1,42 @@
+[submodule "framework"]
+	path = framework
+	url = git@github.com:viva-leisure/framework.git
+[submodule "framework-deploy"]
+	path = framework-deploy
+	url = git@github.com:viva-leisure/framework-deploy.git
+[submodule "hub-core"]
+	path = hub-core
+	url = git@github.com:viva-leisure/hub-core.git
+[submodule "hub-module-access"]
+	path = hub-module-access
+	url = git@github.com:viva-leisure/hub-module-access.git
+[submodule "hub-module-brands"]
+	path = hub-module-brands
+	url = git@github.com:viva-leisure/hub-module-brands.git
+[submodule "hub-module-classes"]
+	path = hub-module-classes
+	url = git@github.com:viva-leisure/hub-module-classes.git
+[submodule "hub-module-customers"]
+	path = hub-module-customers
+	url = git@github.com:viva-leisure/hub-module-customers.git
+[submodule "hub-module-development"]
+	path = hub-module-development
+	url = git@github.com:viva-leisure/hub-module-development.git
+[submodule "hub-module-giftcards"]
+	path = hub-module-giftcards
+	url = git@github.com:viva-leisure/hub-module-giftcards.git
+[submodule "hub-module-infratest"]
+	path = hub-module-infratest
+	url = git@github.com:viva-leisure/hub-module-infratest.git
+[submodule "hub-module-music"]
+	path = hub-module-music
+	url = git@github.com:viva-leisure/hub-module-music.git
+[submodule "hub-module-pos"]
+	path = hub-module-pos
+	url = git@github.com:viva-leisure/hub-module-pos.git
+[submodule "hub-module-products"]
+	path = hub-module-products
+	url = git@github.com:viva-leisure/hub-module-products.git
+[submodule "hub-module-vivapay"]
+	path = hub-module-vivapay
+	url = git@github.com:viva-leisure/hub-module-vivapay.git

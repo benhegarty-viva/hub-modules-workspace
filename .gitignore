@@ -1,11 +1,5 @@
 node_modules/
 pnpm-lock.yaml
 .DS_Store
-
-# Child git repositories (tracked in their own repos)
-framework/
-framework-deploy/
-hub-core/
-hub-module-*/
 docs/
 reference/

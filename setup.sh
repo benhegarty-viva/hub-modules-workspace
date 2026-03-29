@@ -3,41 +3,17 @@ set -euo pipefail
 
 # Hub Modules Workspace Setup
 #
-# Clones all child repos, installs DynamoDB Local, and sets up the
+# Initialises git submodules, installs DynamoDB Local, and sets up the
 # pnpm workspace. Runs automatically on new Claude Code sessions via
 # the SessionStart hook in .claude/settings.json.
 #
 # Usage:
-#   ./setup.sh    — Full setup from scratch
+#   ./setup.sh    — Full setup from scratch (or re-run safely)
 #
 # Works on:
 #   - macOS (local dev with SSH)
-#   - Claude Code on the web (Ubuntu, HTTPS via git proxy)
-
-# Use HTTPS for Claude Code on the web (git proxy handles auth),
-# SSH for local development (uses your SSH keys).
-if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ]; then
-  ORG="https://github.com/viva-leisure"
-else
-  ORG="git@github.com:viva-leisure"
-fi
-
-REPOS=(
-  framework
-  framework-deploy
-  hub-core
-  hub-module-access
-  hub-module-brands
-  hub-module-classes
-  hub-module-customers
-  hub-module-development
-  hub-module-giftcards
-  hub-module-infratest
-  hub-module-music
-  hub-module-pos
-  hub-module-products
-  hub-module-vivapay
-)
+#   - Claude Code on the web (Ubuntu, HTTPS via git proxy — submodules
+#     are checked out automatically by the Claude GitHub App)
 
 DYNAMODB_LOCAL_DIR="$HOME/.dynamodb-local"
 DYNAMODB_LOCAL_JAR="$DYNAMODB_LOCAL_DIR/DynamoDBLocal.jar"
@@ -46,24 +22,32 @@ DYNAMODB_LOCAL_URL="https://d1ni2b6xgvw0s0.cloudfront.net/v2.x/dynamodb_local_la
 echo "=== Hub Modules Workspace Setup ==="
 echo ""
 
-# ── Clone repos ──────────────────────────────────────────────────────────────
+# ── Git submodules ────────────────────────────────────────────────────────────
+# On Claude Code web the GitHub App handles submodule checkout automatically.
+# Locally this is a no-op if submodules are already initialised.
 
-CLONED=0
-for repo in "${REPOS[@]}"; do
-  if [ -d "$repo" ]; then
-    echo "  ✓ $repo (exists)"
+echo "=== Submodules ==="
+
+git submodule update --init --recursive 2>&1 | sed 's/^/  /'
+
+# After a fresh clone submodules are in detached-HEAD state.
+# Check out the default branch (main) in each so work can be committed.
+CHECKED_OUT=0
+ALREADY_ON_MAIN=0
+git submodule foreach --quiet '
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+  if [ -z "$branch" ]; then
+    git checkout main --quiet 2>/dev/null || git checkout master --quiet 2>/dev/null || true
+    echo "  ↳ $name — checked out main"
   else
-    echo "  ↓ Cloning $repo..."
-    git clone "$ORG/$repo.git" "$repo"
-    CLONED=$((CLONED + 1))
+    echo "  ↳ $name — already on $branch"
   fi
-done
+'
+
 echo ""
-echo "  $CLONED repo(s) cloned, $((${#REPOS[@]} - CLONED)) already present"
 
 # ── DynamoDB Local ───────────────────────────────────────────────────────────
 
-echo ""
 echo "=== DynamoDB Local ==="
 
 # Check Java 17+
@@ -89,13 +73,14 @@ if [ "$JAVA_OK" = false ]; then
     else
       sudo apt-get update -qq && sudo apt-get install -y -qq openjdk-17-jre-headless
     fi
+    echo "  ✓ Java installed"
   elif command -v brew &>/dev/null; then
     brew install openjdk@17
+    echo "  ✓ Java installed"
   else
     echo "  ⚠ Cannot install Java automatically. Please install Java 17+ manually."
     echo "    DynamoDB Local will fall back to Docker if available."
   fi
-  echo "  ✓ Java installed"
 fi
 
 # Download DynamoDB Local JAR
@@ -140,4 +125,8 @@ echo "  Quick start:"
 echo "    pnpm dev:core          # Start hub-core backend (auto-starts DynamoDB Local)"
 echo "    pnpm dev:hub           # Start hub-core frontend"
 echo "    pnpm build:framework   # Rebuild framework after changes"
+echo ""
+echo "  Submodule helpers:"
+echo "    git submodule foreach git pull   # Pull latest on all submodules"
+echo "    git submodule status             # Show current commit for each submodule"
 echo ""
