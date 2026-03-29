@@ -1,0 +1,35 @@
+{
+  "name": "hub-modules-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "build:framework": "pnpm --filter @viva-leisure/framework run build",
+    "dev:framework": "pnpm --filter @viva-leisure/framework exec -- rollup -c -w",
+    "dev:core": "pnpm --filter @viva-leisure/hub-core run dev",
+    "dev:hub": "pnpm --filter @viva-leisure/hub-core run dev:hub",
+    "lint": "pnpm -r run lint",
+    "test": "pnpm -r run test",
+    "setup": "pnpm run build:framework && pnpm install"
+  },
+  "pnpm": {
+    "overrides": {
+      "tar": "^7.5.3",
+      "cacache": "^19.0.0",
+      "@smithy/signature-v4": "5.3.11"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@react-types/button>react": "^18",
+        "@react-types/shared>react": "^18",
+        "@react-types/radio>react": "^18",
+        "@react-types/switch>react": "^18",
+        "@react-types/textfield>react": "^18",
+        "vite-plugin-node-polyfills>vite": "^6"
+      }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

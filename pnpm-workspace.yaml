@@ -1,0 +1,5 @@
+packages:
+  - framework
+  - framework-deploy
+  - hub-core
+  - hub-module-*

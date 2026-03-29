@@ -1,0 +1,77 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hub-core-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-core", "dev:hub"],
+      "port": 5001
+    },
+    {
+      "name": "hub-core-members",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-core", "dev:members"],
+      "port": 5174
+    },
+    {
+      "name": "hub-module-access",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-access", "dev:hub", "--port", "5002"],
+      "port": 5002
+    },
+    {
+      "name": "hub-module-brands",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-brands", "dev:hub", "--port", "5003"],
+      "port": 5003
+    },
+    {
+      "name": "hub-module-classes",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-classes", "dev:hub", "--port", "5004"],
+      "port": 5004
+    },
+    {
+      "name": "hub-module-customers",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-customers", "dev:hub", "--port", "5005"],
+      "port": 5005
+    },
+    {
+      "name": "hub-module-development",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-development", "dev:hub", "--port", "5006"],
+      "port": 5006
+    },
+    {
+      "name": "hub-module-giftcards",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-giftcards", "dev:hub", "--port", "5007"],
+      "port": 5007
+    },
+    {
+      "name": "hub-module-music",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-music", "dev:hub", "--port", "5008"],
+      "port": 5008
+    },
+    {
+      "name": "hub-module-pos",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-pos", "dev:hub", "--port", "5009"],
+      "port": 5009
+    },
+    {
+      "name": "hub-module-products",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-products", "dev:hub", "--port", "5010"],
+      "port": 5010
+    },
+    {
+      "name": "hub-module-vivapay",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hub-module-vivapay", "dev:hub", "--port", "5011"],
+      "port": 5011
+    }
+  ]
+}
